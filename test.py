@@ -3,7 +3,7 @@ from bvh import Bvh
 import math
 import matplotlib.pyplot as plt
 
-with open('lock/take004_chr00_lock_sharp.bvh','r') as f:
+with open('lock/lock_wide.bvh','r') as f:
     mocap=Bvh(f.read())
     joints_name = mocap.get_joints_names()
     borns_length=list()
@@ -20,7 +20,7 @@ with open('lock/take004_chr00_lock_sharp.bvh','r') as f:
             #print(mocap.joint_offset(item)[0])
             a=(mocap.joint_offset(item)[0])**2+(mocap.joint_offset(item)[1])**2+(mocap.joint_offset(item)[2])**2
             borns_length.append(math.sqrt(a))
-    item='RightArm'
+    item='Hips'
     print(item)
     for frame in range(0,mocap.nframes):#0,mocap.nframes
         joint_position_x.append(mocap.frame_joint_channel(frame, item, 'Xrotation'))
@@ -59,4 +59,4 @@ ay.plot(frame_num, joint_position_y, marker="v", color = "blue", linestyle = ":"
 az = fig.add_subplot(3, 1, 3)
 az.plot(frame_num, joint_position_z, marker="v", color = "green", linestyle = ":")
 #plt.savefig("hogez.png")
-plt.savefig("hoge1.png")
+plt.savefig("Hips.png")
