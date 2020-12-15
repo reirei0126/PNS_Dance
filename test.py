@@ -4,7 +4,7 @@ import math
 import matplotlib.pyplot as plt
 import csv
 
-with open('take001_lock_chr00.bvh','r') as f:
+with open('take004_point_tired_chr00_frame90.bvh','r') as f:
     mocap = Bvh(f.read())
     
     frame_num=list(range(mocap.nframes))
@@ -52,7 +52,7 @@ with open('take001_lock_chr00.bvh','r') as f:
         
     print("hahaha")
 
-file = open('new.csv', 'w',newline="")    #既存でないファイル名を作成してください
+file = open('take4.csv', 'w',newline="")    #既存でないファイル名を作成してください
 w = csv.writer(file)
 
 for frame in range(0,mocap.nframes):
