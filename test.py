@@ -4,7 +4,7 @@ import math
 import matplotlib.pyplot as plt
 import csv
 
-with open('take004_point_tired_chr00_frame90.bvh','r') as f:
+with open('take001_lock_chr00_frame90.bvh','r') as f:
     mocap = Bvh(f.read())
     
     frame_num=list(range(mocap.nframes))
@@ -13,7 +13,7 @@ with open('take004_point_tired_chr00_frame90.bvh','r') as f:
     joint_position_y = list()
     joint_position_z = list()
     
-    item='RightArm'
+    item='LeftArm'
     print(item)
     for frame in range(0,mocap.nframes):#0,mocap.nframes
         #join_position_x
@@ -51,8 +51,8 @@ with open('take004_point_tired_chr00_frame90.bvh','r') as f:
 
         
     print("hahaha")
-
-file = open('take4.csv', 'w',newline="")    #既存でないファイル名を作成してください
+'''
+file = open('take1.csv', 'w',newline="")    #既存でないファイル名を作成してください
 w = csv.writer(file)
 
 for frame in range(0,mocap.nframes):
@@ -63,22 +63,55 @@ for frame in range(0,mocap.nframes):
 
  
 file.close()
-
-fig = plt.figure()
-
-ax = fig.add_subplot(3, 1, 1)
-ax.plot(frame_num, joint_position_x, marker="o", color = "red", linestyle = "--")
-#plt.savefig("hogex.png")
-ay = fig.add_subplot(3, 1, 2)
-ay.plot(frame_num, joint_position_y, marker="v", color = "blue", linestyle = ":")
-#plt.savefig("hogey.png")
-az = fig.add_subplot(3, 1, 3)
-az.plot(frame_num, joint_position_z, marker="v", color = "green", linestyle = ":")
-#plt.savefig("hogez.png")
 '''
-fig = plt.figure()
-
-ax = fig.add_subplot(1, 1, 1)
-ax.plot(frame_num, joint_position_x, marker="o", color = "red", linestyle = "--")
+routine_x = list()
+routine_y = list()
+routine_z = list()
+routine_num = list(range(25))
+frame_count = 0
+stop_frame = list()
+for i in range(0,((mocap.nframes-1390)//100)-3):
+    fig = plt.figure()
+    for j in range(0,25):
+        if i==0:
+            #routine_x.append(joint_position_x[j+1390+63])
+            #routine_y.append(joint_position_y[j+1390+63])
+            routine_z.append(joint_position_z[j+1390+63])
+        else:
+            #routine_x[j]=joint_position_x[j+1390+63+i*100]
+            #routine_y[j]=joint_position_y[j+1390+63+i*100]
+            routine_z[j]=joint_position_z[j+1390+63+i*100]
+            if abs(routine_z[j]-routine_z[j-1])<1.5:
+                frame_count+=1
+    stop_frame.append(frame_count)
+    frame_count = 0
+        
+    
+    '''
+    ax = fig.add_subplot(3, 1, 1)
+    ax.plot(routine_num, routine_x, marker="o", color = "red", linestyle = "--")
+    ay = fig.add_subplot(3, 1, 2)
+    ay.plot(routine_num, routine_y, marker="v", color = "blue", linestyle = ":")
+    az = fig.add_subplot(3, 1, 3)
+    az.plot(routine_num, routine_z, marker="v", color = "green", linestyle = ":")
+    #plt.savefig("take1/{}/routine{}.png".format(item,i))
+    '''
+    #plt.savefig("hoge{}.png".format(i))
+print("平均静止フレームは{}".format(sum(stop_frame)/len(stop_frame)))
 '''
-plt.savefig("filter2.png")
+    ax = fig.add_subplot(3, 1, 1)
+    ax.plot(frame_num, joint_position_x, marker="o", color = "red", linestyle = "--")
+    #plt.savefig("hogex.png")
+    ay = fig.add_subplot(3, 1, 2)
+    ay.plot(frame_num, joint_position_y, marker="v", color = "blue", linestyle = ":")
+    #plt.savefig("hogey.png")
+    az = fig.add_subplot(3, 1, 3)
+    az.plot(frame_num, joint_position_z, marker="v", color = "green", linestyle = ":")
+    #plt.savefig("hogez.png")
+    
+    fig = plt.figure()
+
+    ax = fig.add_subplot(1, 1, 1)
+    ax.plot(frame_num, joint_position_x, marker="o", color = "red", linestyle = "--")
+    '''
+   #plt.savefig("filter.png")
