@@ -13,7 +13,7 @@ with open('take001_lock_chr00_frame90.bvh','r') as f:
     joint_position_y = list()
     joint_position_z = list()
     
-    item='LeftArm'
+    item='Hips'#RightArm Hips Spine LeftArm
     print(item)
     for frame in range(0,mocap.nframes):#0,mocap.nframes
         #join_position_x
